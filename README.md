@@ -136,7 +136,7 @@ ORDER BY YearMonth;
 ![Sales per Month](/Figures/Monthly_Sales_Trend.png)
 
 # 3. Advanced analysis
-- ## 3.1 RFM segmentation (Recency, Frequency, Monetary)**
+## 3.1 RFM segmentation (Recency, Frequency, Monetary)**
 
 ```SQL
 WITH customer_summary AS (
@@ -160,6 +160,37 @@ LIMIT 70;
 ```
 
 ![RFM segmentation](/Figures/RFM.png)
+
+## 3.2 Customer Retention Over Time
+```SQL
+WITH first_purchase AS (
+  SELECT 
+    CustomerID,
+    MIN(YearMonth) AS cohort_month
+  FROM Online_Retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID
+),
+customer_monthly AS (
+  SELECT 
+    CustomerID,
+    YearMonth AS order_month
+  FROM Online_Retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID, YearMonth
+)
+SELECT
+  f.cohort_month,
+  c.order_month,
+  COUNT(DISTINCT c.CustomerID) AS active_customers
+FROM first_purchase f
+JOIN customer_monthly c 
+  ON f.CustomerID = c.CustomerID
+GROUP BY f.cohort_month, c.order_month
+ORDER BY f.cohort_month, c.order_month;
+```
+![Customer Retention Over Time](/Figures/Customer_Retention_by_Cohort_(Monthly).png)
+
 
 
 
