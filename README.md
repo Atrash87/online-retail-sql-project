@@ -50,3 +50,12 @@ ALTER TABLE online_retail ADD COLUMN TotalAmount DECIMAL(10,2);
 UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
 ```
+---
+# Data analysis
+
+## 1. Sales analysis
+- Total amount = 10631960.06 £
+```SQL
+SELECT ROUND(SUM(TotalAmount), 2) AS total_revenue
+FROM online_retail;
+```
