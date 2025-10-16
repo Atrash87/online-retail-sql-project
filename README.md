@@ -4,13 +4,13 @@ SQL project: data cleaning, EDA, and insights using an online retail dataset.
 
 ## Replace null with "No Customer ID"
 
-FROM online_retail
+```FROM online_retail
 WHERE TRIM(CustomerID) = '';
 
 UPDATE online_retail
 SET CustomerID = 'No Customer ID'
 WHERE CustomerID IS NULL OR TRIM(CustomerID) = '';
-
+```
 ## Delete negative and zero quantities:
 DELETE FROM online_retail WHERE Quantity <= 0;
 
