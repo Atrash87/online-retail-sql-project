@@ -8,7 +8,7 @@ This is a transactional data set which contains all the transactions occurring b
 
 ---
 # 1. Data Cleaning
-## Replace null with "No Customer ID"
+## 1.1 Replace null with "No Customer ID"
 
 ```SQL
 FROM online_retail
@@ -18,7 +18,7 @@ UPDATE online_retail
 SET CustomerID = 'No Customer ID'
 WHERE CustomerID IS NULL OR TRIM(CustomerID) = '';
 ```
-## 1.1 Standardize text & Delete (negativ & zero quantities):
+## 1.2 Standardize text & Delete (negativ & zero quantities):
 ```SQL
 DELETE FROM online_retail WHERE Quantity <= 0;
 
@@ -37,7 +37,7 @@ SET
     Country = LOWER(TRIM(Country));
 ```
 
-## 1.2 Remove dublicates
+## 1.3 Remove dublicates
 ```SQL
 DELETE FROM online_retail
 WHERE rowid NOT IN (
@@ -46,7 +46,7 @@ WHERE rowid NOT IN (
   GROUP BY InvoiceNo, StockCode, Quantity, InvoiceDate, CustomerID
 );
 ```
-## 1.3 Create new column "TotalAmount"
+## 1.4 Create new column "TotalAmount"
 
 ```SQL
 ALTER TABLE online_retail ADD COLUMN TotalAmount DECIMAL(10,2);
