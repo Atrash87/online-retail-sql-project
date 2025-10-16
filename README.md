@@ -72,4 +72,5 @@ GROUP BY InvoiceNo
 ORDER BY invoice_total DESC
 LIMIT 10;
 ```
+----
 ![Top 10 Invoices by Revenue](/Figures/Top_10_Invoices_by_Total_Amount.png)
