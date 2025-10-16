@@ -56,7 +56,7 @@ UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
 ```
 ---
-# 2. Data analysis
+# 2. Exploratory Data analysis (EDA)
 
 ## 2.1 Sales analysis
 - **Total amount** = 10631960.06 £
@@ -134,6 +134,33 @@ GROUP BY YearMonth
 ORDER BY YearMonth;
 ```
 ![Sales per Month](/Figures/Monthly_Sales_Trend.png)
+
+# 3. Advanced analysis
+- ## 3.1 RFM segmentation (Recency, Frequency, Monetary)**
+
+```SQL
+WITH customer_summary AS (
+  SELECT 
+    CustomerID,
+    MAX(date(InvoiceDate)) AS last_purchase,
+    COUNT(DISTINCT InvoiceNo) AS frequency,
+    SUM(Quantity * UnitPrice) AS monetary
+  FROM online_retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID
+)
+SELECT
+  CustomerID,
+  CAST(julianday('2011-12-10') - julianday(last_purchase) AS INTEGER) AS recency_days,
+  frequency,
+  monetary
+FROM customer_summary
+ORDER BY monetary DESC
+LIMIT 70;
+```
+
+![RFM segmentation](/Figures/RFM.png)
+
 
 
 
