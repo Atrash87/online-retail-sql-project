@@ -1,10 +1,11 @@
 # online-retail-sql-project
 SQL project: data cleaning, EDA, and insights using an online retail dataset.
 
-
+----
 ## Replace null with "No Customer ID"
 
-```FROM online_retail
+```SQL
+FROM online_retail
 WHERE TRIM(CustomerID) = '';
 
 UPDATE online_retail
