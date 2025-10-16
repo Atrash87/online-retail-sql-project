@@ -104,7 +104,7 @@ LIMIT 10;
 
 ## 2.3 Product analysis
 - **Top-Selling Products by Quantity**
-```
+```SQL
 SELECT Description, SUM(Quantity) AS TotalSold
 FROM online_retail
 GROUP BY Description
