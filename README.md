@@ -1,8 +1,8 @@
 # online-retail-sql-project
 SQL project: data cleaning, EDA, and insights using an online retail dataset.
 
-----
-# Data Cleaning
+---
+# 0. Data Cleaning
 ## Replace null with "No Customer ID"
 
 ```SQL
@@ -51,7 +51,7 @@ UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
 ```
 ---
-# Data analysis
+# 1. Data analysis
 
 ## 1. Sales analysis
 - **Total amount** = 10631960.06 £
