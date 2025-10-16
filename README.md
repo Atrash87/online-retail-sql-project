@@ -13,6 +13,7 @@ SET CustomerID = 'No Customer ID'
 WHERE CustomerID IS NULL OR TRIM(CustomerID) = '';
 ```
 ## Delete negative and zero quantities:
+```SQL
 DELETE FROM online_retail WHERE Quantity <= 0;
 
 --Delete negative and zero UnitPrice:
@@ -28,7 +29,7 @@ UPDATE online_retail
 SET
     Description = LOWER(TRIM(Description)),
     Country = LOWER(TRIM(Country));
-
+```
 
 -- Remove dublicates
 DELETE FROM online_retail
