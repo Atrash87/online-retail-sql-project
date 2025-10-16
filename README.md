@@ -12,7 +12,7 @@ UPDATE online_retail
 SET CustomerID = 'No Customer ID'
 WHERE CustomerID IS NULL OR TRIM(CustomerID) = '';
 ```
-## Delete negative and zero quantities:
+## Standardize text & Delete (negativ & zero quantities):
 ```SQL
 DELETE FROM online_retail WHERE Quantity <= 0;
 
@@ -31,17 +31,21 @@ SET
     Country = LOWER(TRIM(Country));
 ```
 
--- Remove dublicates
+## Remove dublicates
+```SQL
 DELETE FROM online_retail
 WHERE rowid NOT IN (
   SELECT MIN(rowid)
   FROM online_retail
   GROUP BY InvoiceNo, StockCode, Quantity, InvoiceDate, CustomerID
 );
+```
+## Create new column "TotalAmount"
 
---Create new column "TotalAmount"
+```SQL
 ALTER TABLE online_retail ADD COLUMN TotalAmount DECIMAL(10,2);
 
 -- Assign values to"TotalAmount"
 UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
+```
