@@ -2,6 +2,7 @@
 SQL project: data cleaning, EDA, and insights using an online retail dataset.
 
 ----
+# Data Cleaning
 ## Replace null with "No Customer ID"
 
 ```SQL
