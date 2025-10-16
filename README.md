@@ -123,7 +123,17 @@ LIMIT 10;
 ```
 ![Top Products by Revenue](/Figures/Top_10_Products_by_Total_Revenue.png)
 
-
+## 2.4 Time based analysis
+```SQL
+--Sales per Month
+SELECT
+  YearMonth as Month,
+  ROUND(SUM(TotalAmount), 2) AS monthly_sales
+FROM online_retail
+GROUP BY YearMonth
+ORDER BY YearMonth;
+```
+![Sales per Month](/Figures/Monthly_Sales_Trend.png)
 
 
 
