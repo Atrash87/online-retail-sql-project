@@ -2,7 +2,7 @@
 SQL project: data cleaning, EDA, and insights using an online retail dataset.
 
 ---
-# 0. Data Cleaning
+# 1. Data Cleaning
 ## Replace null with "No Customer ID"
 
 ```SQL
@@ -13,7 +13,7 @@ UPDATE online_retail
 SET CustomerID = 'No Customer ID'
 WHERE CustomerID IS NULL OR TRIM(CustomerID) = '';
 ```
-## Standardize text & Delete (negativ & zero quantities):
+## 1.1 Standardize text & Delete (negativ & zero quantities):
 ```SQL
 DELETE FROM online_retail WHERE Quantity <= 0;
 
@@ -32,7 +32,7 @@ SET
     Country = LOWER(TRIM(Country));
 ```
 
-## Remove dublicates
+## 1.2 Remove dublicates
 ```SQL
 DELETE FROM online_retail
 WHERE rowid NOT IN (
@@ -41,7 +41,7 @@ WHERE rowid NOT IN (
   GROUP BY InvoiceNo, StockCode, Quantity, InvoiceDate, CustomerID
 );
 ```
-## Create new column "TotalAmount"
+## 1.3 Create new column "TotalAmount"
 
 ```SQL
 ALTER TABLE online_retail ADD COLUMN TotalAmount DECIMAL(10,2);
@@ -51,9 +51,9 @@ UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
 ```
 ---
-# 1. Data analysis
+# 2. Data analysis
 
-## 1. Sales analysis
+## 2.1 Sales analysis
 - **Total amount** = 10631960.06 £
 ```SQL
 SELECT ROUND(SUM(TotalAmount), 2) AS total_revenue
@@ -76,7 +76,7 @@ LIMIT 10;
 
 ![Top 10 Invoices by total amount](/Figures/Top_10_Invoices_by_Total_Amount.png)
 
-## 2. Customer analysis
+## 2.2 Customer analysis
 - **Top Customers by Revenue**
 ```sql
 SELECT CustomerID, SUM(UnitPrice) AS Revenue
@@ -97,7 +97,7 @@ LIMIT 10;
 ```
 ![Top Countries by Sales](/Figures/Top_10_Countries_by_Total_Sales.png)
 
-## 3. Product analysis
+## 2.3 Product analysis
 - **Top-Selling Products by Quantity**
 ```
 SELECT Description, SUM(Quantity) AS TotalSold
