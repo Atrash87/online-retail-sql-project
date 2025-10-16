@@ -84,7 +84,7 @@ LIMIT 10;
 ## 2.2 Customer analysis
 - **Top Customers by Revenue**
 ```sql
-SELECT CustomerID, SUM(UnitPrice) AS Revenue
+SELECT CustomerID, SUM(TotalAmount) AS Revenue
 FROM online_retail
 GROUP BY CustomerID
 ORDER BY Revenue DESC
