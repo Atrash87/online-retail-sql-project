@@ -59,3 +59,17 @@ SET TotalAmount = Quantity * UnitPrice;
 SELECT ROUND(SUM(TotalAmount), 2) AS total_revenue
 FROM online_retail;
 ```
+- Average Order Value = 532.66 £
+```SQL
+SELECT ROUND(SUM(TotalAmount)/COUNT(DISTINCT InvoiceNo), 2) AS avg_order_value
+FROM online_retail;
+```
+- Top 10 Invoices by Revenue
+  ```SQL
+  SELECT InvoiceNo, ROUND(SUM(TotalAmount), 2) AS invoice_total
+FROM online_retail
+GROUP BY InvoiceNo
+ORDER BY invoice_total DESC
+LIMIT 10;
+```
+![Top 10 Invoices by Revenue](../Figures/Top_10_Invoices_by_Total_Amount.png)
