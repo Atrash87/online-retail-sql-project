@@ -120,6 +120,59 @@ ORDER BY YearMonth;
 
 
 
+--Advanced analysis
+
+--RFM segmentation (Recency, Frequency, Monetary)
+
+```SQl
+  WITH customer_summary AS (
+  SELECT 
+    CustomerID,
+    MAX(date(InvoiceDate)) AS last_purchase,
+    COUNT(DISTINCT InvoiceNo) AS frequency,
+    SUM(Quantity * UnitPrice) AS monetary
+  FROM online_retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID
+)
+SELECT
+  CustomerID,
+  CAST(julianday('2011-12-10') - julianday(last_purchase) AS INTEGER) AS recency_days,
+  frequency,
+  monetary
+FROM customer_summary
+ORDER BY monetary DESC
+LIMIT 70;
+```
+-- Customer retention over time
+
+```Sql
+WITH first_purchase AS (
+  SELECT 
+    CustomerID,
+    MIN(YearMonth) AS cohort_month
+  FROM Online_Retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID
+),
+customer_monthly AS (
+  SELECT 
+    CustomerID,
+    YearMonth AS order_month
+  FROM Online_Retail
+  WHERE CustomerID IS NOT NULL
+  GROUP BY CustomerID, YearMonth
+)
+SELECT
+  f.cohort_month,
+  c.order_month,
+  COUNT(DISTINCT c.CustomerID) AS active_customers
+FROM first_purchase f
+JOIN customer_monthly c 
+  ON f.CustomerID = c.CustomerID
+GROUP BY f.cohort_month, c.order_month
+ORDER BY f.cohort_month, c.order_month;
+```
 
 
 
