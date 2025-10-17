@@ -146,6 +146,7 @@ LIMIT 70;
 ```
 -- Customer retention over time
 
+
 ```Sql
 WITH first_purchase AS (
   SELECT 
@@ -173,6 +174,7 @@ JOIN customer_monthly c
 GROUP BY f.cohort_month, c.order_month
 ORDER BY f.cohort_month, c.order_month;
 ```
+
 
 
 
