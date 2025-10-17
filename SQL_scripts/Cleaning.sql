@@ -44,6 +44,23 @@ ALTER TABLE online_retail ADD COLUMN TotalAmount DECIMAL(10,2);
 UPDATE online_retail
 SET TotalAmount = Quantity * UnitPrice;
 
+--Optional; Create a view table that includes the new created columns:
+CREATE VIEW OnlineRetail_enriched AS
+SELECT
+  InvovieNo,
+  StockCode,
+  Description,
+  Quantity,
+  UnitPrice,
+  (quantity * unit_price) AS TotalAmount,
+  InvoiceDate,
+  DATE_TRUNC('day', invoice_date) AS SaleDate,
+  CustomerID,
+  Country
+FROM online_retail;
+
+
+
 
 
 
